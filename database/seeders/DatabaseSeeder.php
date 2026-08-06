@@ -230,9 +230,12 @@ class DatabaseSeeder extends Seeder
         // 5. Real Order Data Dummy Seeders (Transactions & Order Items)
         $statuses = ['pending', 'processing', 'completed', 'cancelled'];
         
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 15; $i++) {
             $selectedStore = $stores[$i % count($stores)];
             $selectedStatus = $statuses[$i % count($statuses)];
+
+            // Alternating buyer between $admin and $buyer so both have order data when logged in!
+            $targetBuyer = ($i % 2 === 0) ? $admin : $buyer;
             
             // Pick 2-3 random products from the created list
             $randomProducts = collect($createdProducts)->where('store_id', $selectedStore->id)->random(min(3, count($createdProducts)));
@@ -263,18 +266,18 @@ class DatabaseSeeder extends Seeder
 
             $order = Order::create([
                 'order_number' => 'ORD-' . strtoupper(Str::random(8)),
-                'buyer_id' => $buyer->id,
+                'buyer_id' => $targetBuyer->id,
                 'store_id' => $selectedStore->id,
                 'total_amount' => $totalAmount,
                 'shipping_fee' => $shippingFee,
                 'status' => $selectedStatus,
                 'payment_status' => 'paid',
                 'shipping_address' => [
-                    'recipient_name' => 'Siti Pembeli',
-                    'phone' => '085712345678',
-                    'address' => 'Jl. Gubeng Kertajaya No. 12B',
-                    'city' => 'Surabaya',
-                    'postal_code' => '60281',
+                    'recipient_name' => $targetBuyer->name,
+                    'phone' => $targetBuyer->phone ?? '081234567890',
+                    'address' => $targetBuyer->address ?? 'Jl. Merdeka No. 45',
+                    'city' => 'Jakarta Pusat',
+                    'postal_code' => '10110',
                 ],
                 'created_at' => now()->subDays(rand(1, 30)),
             ]);

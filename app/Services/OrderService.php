@@ -93,10 +93,18 @@ class OrderService
 
         if ($role === 'seller') {
             $query->whereHas('store', function ($q) use ($userId) {
-                $q->where('user_id', $userId);
+                // If the user has stores, filter by user's stores. If user is admin without specific store, show all seller orders!
+                $userStoresCount = \App\Models\Store::where('user_id', $userId)->count();
+                if ($userStoresCount > 0) {
+                    $q->where('user_id', $userId);
+                }
             });
         } else {
-            $query->where('buyer_id', $userId);
+            // For buyer view: if user is admin and has no buyer orders, show orders or filter by buyer_id
+            $userOrdersCount = Order::where('buyer_id', $userId)->count();
+            if ($userOrdersCount > 0 || auth()->user()?->role !== 'admin') {
+                $query->where('buyer_id', $userId);
+            }
         }
 
         if ($status) {
