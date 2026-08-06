@@ -1,0 +1,108 @@
+/* =============================================
+   cart.css — Shopping Cart & Checkout Styling
+   ============================================= */
+
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 1024px) {
+    .cart-layout {
+        grid-template-columns: 1fr 340px;
+    }
+}
+
+.cart-table-wrapper {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.cart-item-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-item-row:last-child {
+    border-bottom: none;
+}
+
+.cart-item-img {
+    width: 70px;
+    height: 70px;
+    border-radius: var(--radius);
+    object-fit: cover;
+    background: var(--bg-light);
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: var(--text-base);
+    text-decoration: none;
+}
+
+.cart-item-title:hover {
+    color: var(--primary);
+}
+
+.cart-item-store {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.cart-qty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-light);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cart-summary-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 20px;
+    height: fit-content;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.summary-row.grand-total {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--text-main);
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    margin-top: 12px;
+}

@@ -5,6 +5,10 @@ use App\Http\Controllers\Web\AuthController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\ProductController;
+use App\Http\Controllers\Web\CatalogController;
+use App\Http\Controllers\Web\CartController;
+use App\Http\Controllers\Web\CheckoutController;
+use App\Http\Controllers\Web\OrderController;
 
 // Public / Guest Auth Routes
 Route::middleware('guest')->group(function () {
@@ -26,21 +30,22 @@ Route::middleware('auth')->group(function () {
     // Products
     Route::resource('products', ProductController::class);
 
-    // Marketplace Catalog (Placeholder for Phase 7)
-    Route::get('/marketplace', function() {
-        return view('pages.products.index', [
-            'breadcrumbs' => ['Katalog Marketplace' => '#'],
-            'categories' => \App\Models\Category::all()
-        ]);
-    })->name('marketplace.index');
+    // Marketplace Catalog (Phase 7)
+    Route::get('/marketplace', [CatalogController::class, 'index'])->name('marketplace.index');
+    Route::get('/marketplace/{product}', [CatalogController::class, 'show'])->name('marketplace.show');
 
-    // Cart (Placeholder for Phase 7)
-    Route::get('/cart', function() {
-        return redirect()->route('dashboard')->with('info', 'Modul keranjang akan aktif pada Fase 7.');
-    })->name('cart.index');
+    // Cart (Phase 7)
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-    // Orders (Placeholder for Phase 8)
-    Route::get('/orders', function() {
-        return redirect()->route('dashboard')->with('info', 'Modul pesanan akan aktif pada Fase 8.');
-    })->name('orders.index');
+    // Checkout (Phase 7)
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    // Orders (Phase 8)
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
