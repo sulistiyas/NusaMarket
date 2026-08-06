@@ -1,0 +1,366 @@
+/* =============================================
+   auth.css — Modern Auth Pages (Login & Register)
+   NusaMarket - Blue Ocean Theme UI/UX
+   ============================================= */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 15% 15%, rgba(14, 116, 144, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(30, 111, 217, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #071e3d 0%, #0b3a75 50%, #0e7490 100%);
+    padding: 24px 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background ambient glow shapes */
+.auth-container::before {
+    content: '';
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: -80px;
+    left: -80px;
+    background: linear-gradient(135deg, var(--ocean-light), var(--primary-light));
+    filter: blur(90px);
+    opacity: 0.35;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.auth-container::after {
+    content: '';
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    bottom: -100px;
+    right: -100px;
+    background: linear-gradient(135deg, var(--primary), var(--ocean));
+    filter: blur(100px);
+    opacity: 0.3;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(7, 30, 61, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+    padding: 36px 32px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 24px 60px rgba(7, 30, 61, 0.42),
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.auth-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--primary-deeper);
+    margin-bottom: 12px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.auth-logo:hover {
+    transform: translateY(-2px);
+}
+
+.auth-logo-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--gradient-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-white);
+    font-size: 1.35rem;
+    box-shadow: var(--shadow-primary);
+}
+
+.auth-title {
+    font-size: 1.6rem;
+    color: var(--primary-deeper);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+.auth-subtitle {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+/* =============================================
+   Demo Accounts Quick Fill Panel
+   ============================================= */
+.demo-panel {
+    background: rgba(240, 246, 255, 0.75);
+    border: 1px dashed var(--border-dark);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 24px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.demo-panel:hover {
+    background: rgba(224, 242, 254, 0.85);
+    border-color: var(--primary-light);
+}
+
+.demo-panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ocean-dark);
+    margin-bottom: 10px;
+}
+
+.demo-panel-title i {
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+.demo-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.demo-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 6px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-deeper);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.demo-btn i {
+    font-size: 1rem;
+}
+
+.demo-btn-admin {
+    color: #7c3aed;
+    border-color: #ddd6fe;
+}
+.demo-btn-admin i { color: #7c3aed; }
+.demo-btn-admin:hover, .demo-btn-admin.active {
+    background: #f5f3ff;
+    border-color: #8b5cf6;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+    transform: translateY(-2px);
+}
+
+.demo-btn-seller {
+    color: #0284c7;
+    border-color: #bae6fd;
+}
+.demo-btn-seller i { color: #0284c7; }
+.demo-btn-seller:hover, .demo-btn-seller.active {
+    background: #f0f9ff;
+    border-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+    transform: translateY(-2px);
+}
+
+.demo-btn-buyer {
+    color: #16a34a;
+    border-color: #bbf7d0;
+}
+.demo-btn-buyer i { color: #16a34a; }
+.demo-btn-buyer:hover, .demo-btn-buyer.active {
+    background: #f0fdf4;
+    border-color: #16a34a;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+    transform: translateY(-2px);
+}
+
+/* =============================================
+   Form Inputs & Controls
+   ============================================= */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-deeper);
+    margin-bottom: 6px;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-wrapper .input-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.input-icon-wrapper .form-control {
+    padding-left: 42px;
+}
+
+.input-icon-wrapper:focus-within .input-icon {
+    color: var(--primary);
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+    color: var(--primary);
+    background: var(--primary-pale);
+}
+
+.form-control {
+    width: 100%;
+    height: 46px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background: var(--bg-white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(30, 111, 217, 0.15);
+}
+
+.form-feedback {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--danger);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.btn-auth-submit {
+    width: 100%;
+    height: 48px;
+    background: var(--gradient-primary);
+    color: var(--text-on-primary);
+    border: none;
+    border-radius: 12px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: var(--shadow-primary);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 8px;
+}
+
+.btn-auth-submit:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #072a56 100%);
+    box-shadow: 0 8px 22px rgba(30, 111, 217, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-auth-submit:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(30, 111, 217, 0.3);
+}
+
+.auth-footer {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+    }
+    
+    .demo-buttons-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .demo-btn {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,43 @@
+/* =============================================
+   badge.css — Badges & Status Indicators
+   ============================================= */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    border-radius: 12px;
+    line-height: 1;
+}
+
+.badge-primary {
+    background: var(--primary-pale);
+    color: var(--primary-dark);
+}
+
+.badge-ocean {
+    background: var(--ocean-pale);
+    color: var(--ocean-dark);
+}
+
+.badge-success {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badge-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.badge-warning {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.badge-secondary {
+    background: #f1f5f9;
+    color: #475569;
+}

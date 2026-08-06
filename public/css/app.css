@@ -1,0 +1,79 @@
+/* =============================================
+   app.css — Root CSS Entry Point (Blue Ocean Theme)
+   ============================================= */
+
+/* 1. Import Partials MUST be at the very top */
+@import './main.css';
+@import './header.css';
+@import './sidebar.css';
+@import './button.css';
+@import './form.css';
+@import './card.css';
+@import './badge.css';
+@import './auth.css';
+@import './responsive.css';
+
+/* 2. CSS Custom Properties — Blue Ocean Theme */
+:root {
+    /* === PRIMARY BLUE PALETTE === */
+    --primary:          #1e6fd9;   /* Biru utama */
+    --primary-dark:     #1251a3;   /* Biru gelap */
+    --primary-deeper:   #0b3a75;   /* Biru sangat gelap / navy */
+    --primary-light:    #4f97f0;   /* Biru terang */
+    --primary-pale:     #dbeafe;   /* Biru pucat (background highlight) */
+
+    /* === OCEAN / TEAL ACCENT === */
+    --ocean:            #0e7490;   /* Biru laut / teal */
+    --ocean-dark:       #075985;   /* Biru laut gelap */
+    --ocean-light:      #38bdf8;   /* Biru laut terang / sky */
+    --ocean-pale:       #e0f2fe;   /* Biru laut pucat */
+
+    /* === GRADIENT PRESETS === */
+    --gradient-primary: linear-gradient(135deg, #1e6fd9 0%, #0b3a75 100%);
+    --gradient-ocean:   linear-gradient(135deg, #0e7490 0%, #1e6fd9 100%);
+    --gradient-sidebar: linear-gradient(180deg, #0b3a75 0%, #0e7490 100%);
+    --gradient-header:  linear-gradient(90deg,  #1251a3 0%, #0e7490 100%);
+
+    /* === SEMANTIC COLORS === */
+    --success:          #16a34a;
+    --danger:           #dc2626;
+    --warning:          #d97706;
+    --info:             #0891b2;
+
+    /* === BACKGROUND === */
+    --bg-light:         #f0f6ff;   /* Sedikit kebiru-biruan */
+    --bg-white:         #ffffff;
+    --bg-sidebar:       #0b3a75;   /* Navy untuk sidebar */
+    --bg-header:        #1251a3;   /* Biru gelap untuk header */
+
+    /* === TEXT === */
+    --text-main:        #0f172a;
+    --text-muted:       #475569;
+    --text-on-primary:  #ffffff;   /* Teks di atas background biru */
+    --text-on-sidebar:  #bfdbfe;   /* Teks menu sidebar (biru pucat) */
+    --text-sidebar-active: #ffffff;
+
+    /* === BORDER & SHADOW === */
+    --border:           #bfdbfe;   /* Border bernuansa biru */
+    --border-dark:      #93c5fd;
+    --radius:           8px;
+    --radius-lg:        12px;
+    --shadow-sm:        0 1px 3px rgba(14, 116, 144, 0.12);
+    --shadow-md:        0 4px 12px rgba(14, 116, 144, 0.15);
+    --shadow-primary:   0 4px 16px rgba(30, 111, 217, 0.25);
+
+    /* === LAYOUT === */
+    --sidebar-width:    260px;
+    --sidebar-collapsed: 64px;
+    --header-height:    64px;
+}
+
+/* 3. Reset & Typography */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+    background: var(--bg-light); 
+    color: var(--text-main); 
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}

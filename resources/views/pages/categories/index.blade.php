@@ -1,0 +1,144 @@
+@extends('layouts.app')
+
+@section('title', 'Kategori Produk')
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
+@endpush
+
+@section('content')
+<div class="flex justify-between items-center mb-4">
+    <div>
+        <h1>Kategori Produk</h1>
+        <p>Kelola kategori produk untuk marketplace NusaMarket.</p>
+    </div>
+    <button class="btn btn-primary" @click="$dispatch('open-modal-category')">
+        <i class="fas fa-plus"></i> Tambah Kategori
+    </button>
+</div>
+
+<div
+    x-data="datatable({
+        url: '{{ url('/api/v1/categories') }}',
+        columns: ['name', 'slug', 'is_active', 'created_at'],
+        perPage: 10
+    })"
+    x-init="fetchData()"
+>
+    <div class="dt-responsive">
+        {{-- Search & Filter Toolbar --}}
+        <div class="dt-toolbar">
+            <div class="dt-search">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    x-model="search" 
+                    @input.debounce.400ms="fetchData()" 
+                    placeholder="Cari nama kategori..."
+                >
+            </div>
+            <div class="flex items-center gap-2">
+                <label class="form-label" style="margin: 0;">Tampilkan:</label>
+                <select class="form-control" style="width: auto; min-height: 38px;" x-model="perPage" @change="fetchData()">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+
+        {{-- Table --}}
+        <table class="dt-table">
+            <thead>
+                <tr>
+                    <th @click="sort('name')" class="sortable">
+                        Nama Kategori <span x-text="sortIcon('name')"></span>
+                    </th>
+                    <th>Slug</th>
+                    <th>Deskripsi</th>
+                    <th>Status</th>
+                    <th>Tanggal Dibuat</th>
+                    <th class="text-right">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="row in rows" :key="row.id">
+                    <tr>
+                        <td>
+                            <strong x-text="row.name"></strong>
+                        </td>
+                        <td x-text="row.slug"></td>
+                        <td x-text="row.description || '-'"></td>
+                        <td>
+                            <template x-if="row.is_active">
+                                <span class="badge badge-success">AKTIF</span>
+                            </template>
+                            <template x-if="!row.is_active">
+                                <span class="badge badge-danger">NON-AKTIF</span>
+                            </template>
+                        </td>
+                        <td x-text="row.created_at ? new Date(row.created_at).toLocaleDateString('id-ID') : '-'"></td>
+                        <td class="text-right">
+                            <form :action="`{{ url('/categories') }}/${row.id}`" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </template>
+                <tr x-show="rows.length === 0 && !loading">
+                    <td colspan="6" class="text-center" style="padding: 30px; color: var(--text-muted);">
+                        <i class="fas fa-folder-open fa-2x mb-2" style="display: block;"></i>
+                        Tidak ada data kategori ditemukan.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        {{-- Pagination --}}
+        <div class="dt-pagination">
+            <span x-text="`Halaman ${currentPage} dari ${totalPages}`"></span>
+            <div class="dt-pagination-buttons">
+                <button class="btn btn-secondary btn-sm" @click="prevPage()" :disabled="currentPage === 1">
+                    <i class="fas fa-chevron-left"></i> Prev
+                </button>
+                <button class="btn btn-secondary btn-sm" @click="nextPage()" :disabled="currentPage === totalPages">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Create Category --}}
+<div x-data="{ open: false }" @open-modal-category.window="open = true">
+    <div x-show="open" class="sidebar-overlay" style="display: flex; align-items: center; justify-content: center; z-index: 1050;" x-transition.opacity>
+        <div class="card" style="width: 100%; max-width: 500px; margin: 20px;" @click.outside="open = false">
+            <div class="card-header">
+                <h3 class="card-title">Tambah Kategori Baru</h3>
+                <button class="btn btn-ghost btn-sm" @click="open = false"><i class="fas fa-times"></i></button>
+            </div>
+            <form action="{{ route('categories.store') }}" method="POST">
+                @csrf
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nama Kategori <span class="required">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" required placeholder="Contoh: Elektronik">
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-label">Deskripsi</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Penjelasan singkat kategori"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer text-right">
+                    <button type="button" class="btn btn-secondary" @click="open = false">Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan Kategori</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection

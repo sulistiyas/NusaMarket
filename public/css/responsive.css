@@ -1,0 +1,44 @@
+/* =============================================
+   responsive.css — Responsive Breakpoints & Overrides
+   ============================================= */
+
+/* Small — Tablet portrait (>=640px) */
+@media (min-width: 640px) {
+    .grid-cols-sm-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Medium — Tablet landscape (>=768px) */
+@media (min-width: 768px) {
+    .main-content {
+        padding: 24px;
+    }
+
+    h1 { font-size: var(--text-3xl); }
+    h2 { font-size: var(--text-2xl); }
+}
+
+/* Large — Desktop (>=1024px) */
+@media (min-width: 1024px) {
+    .sidebar {
+        transform: translateX(0); /* Desktop: selalu terlihat */
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-width);
+    }
+
+    .sidebar-toggle {
+        display: none; /* Hide toggle button on desktop */
+    }
+
+    .grid-cols-lg-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-cols-lg-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Extra Large — Wide Desktop (>=1280px) */
+@media (min-width: 1280px) {
+    .container-xl {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+}

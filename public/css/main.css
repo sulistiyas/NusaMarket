@@ -1,0 +1,81 @@
+/* =============================================
+   main.css — Layout Umum & Utilities
+   ============================================= */
+
+/* Typography Responsive */
+:root {
+    --text-xs:   0.75rem;
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.25rem;
+    --text-2xl:  1.5rem;
+    --text-3xl:  1.875rem;
+}
+
+h1 { font-size: var(--text-2xl); font-weight: 700; color: var(--primary-deeper); margin-bottom: 8px; }
+h2 { font-size: var(--text-xl); font-weight: 600; color: var(--primary-dark); margin-bottom: 6px; }
+h3 { font-size: var(--text-lg); font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+p { color: var(--text-muted); font-size: var(--text-sm); }
+
+a { color: var(--primary); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--primary-dark); }
+
+/* Layout Wrapper & Main Content */
+.layout-wrapper {
+    display: flex;
+    min-height: calc(100vh - var(--header-height));
+    position: relative;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 16px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Breadcrumb Styling */
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+.breadcrumb-item { display: flex; align-items: center; gap: 8px; }
+.breadcrumb-item.active { color: var(--primary); font-weight: 600; }
+.breadcrumb-separator { color: var(--border-dark); }
+
+/* Grid System */
+.grid { display: grid; gap: 16px; }
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Helper Utilities */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* Overlay Mobile Sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 990;
+}
