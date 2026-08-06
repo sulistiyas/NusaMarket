@@ -7,6 +7,14 @@ export function initSelect2() {
         window.$('.select2').each(function () {
             const $this = window.$(this);
 
+            // Only initialize native <select> elements.
+            // Select2 container spans also carry the `.select2` class,
+            // so without this check a second broken instance is created
+            // on the container span (empty dropdown) on re-init.
+            if (!$this.is('select')) {
+                return;
+            }
+
             if ($this.hasClass('select2-hidden-accessible')) {
                 return;
             }

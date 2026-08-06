@@ -132,6 +132,55 @@ a:hover {
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 
+/* Alpine x-cloak utility */
+[x-cloak] { 
+    display: none !important; 
+}
+
+/* Modal System */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(7, 30, 61, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px;
+}
+
+.form-label-inline {
+    margin: 0;
+}
+
+.select-per-page {
+    width: auto;
+    min-height: 38px;
+}
+
+.form-inline {
+    display: inline-block;
+}
+
+.empty-cell {
+    padding: 30px;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    display: block;
+}
+
 /* Overlay Mobile Sidebar with Glassmorphism Blur */
 .sidebar-overlay {
     position: fixed;

@@ -38,8 +38,8 @@
                 >
             </div>
             <div class="flex items-center gap-2">
-                <label class="form-label" style="margin: 0;">Tampilkan:</label>
-                <select class="form-control" style="width: auto; min-height: 38px;" x-model="perPage" @change="fetchData()">
+                <label class="form-label form-label-inline">Tampilkan:</label>
+                <select class="form-control select-per-page" x-model="perPage" @change="fetchData()">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -79,7 +79,7 @@
                         </td>
                         <td x-text="row.created_at ? new Date(row.created_at).toLocaleDateString('id-ID') : '-'"></td>
                         <td class="text-right">
-                            <form :action="`{{ url('/categories') }}/${row.id}`" method="POST" style="display: inline-block;">
+                            <form :action="`{{ url('/categories') }}/${row.id}`" method="POST" class="form-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?')">
@@ -90,8 +90,8 @@
                     </tr>
                 </template>
                 <tr x-show="rows.length === 0 && !loading">
-                    <td colspan="6" class="text-center" style="padding: 30px; color: var(--text-muted);">
-                        <i class="fas fa-folder-open fa-2x mb-2" style="display: block;"></i>
+                    <td colspan="6" class="text-center empty-cell">
+                        <i class="fas fa-folder-open fa-2x mb-2 empty-icon"></i>
                         Tidak ada data kategori ditemukan.
                     </td>
                 </tr>
@@ -115,8 +115,8 @@
 
 {{-- Modal Create Category --}}
 <div x-data="{ open: false }" @open-modal-category.window="open = true">
-    <div x-show="open" class="sidebar-overlay" style="display: flex; align-items: center; justify-content: center; z-index: 1050;" x-transition.opacity>
-        <div class="card" style="width: 100%; max-width: 500px; margin: 20px;" @click.outside="open = false">
+    <div x-show="open" x-cloak class="modal-overlay" x-transition.opacity>
+        <div class="card modal-card" @click.outside="open = false">
             <div class="card-header">
                 <h3 class="card-title">Tambah Kategori Baru</h3>
                 <button class="btn btn-ghost btn-sm" @click="open = false"><i class="fas fa-times"></i></button>
