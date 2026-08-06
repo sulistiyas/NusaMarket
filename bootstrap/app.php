@@ -13,10 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Aktifkan Sanctum stateful API agar AJAX dari browser (session cookie) dapat mengakses API
+        $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
     })->create();
+

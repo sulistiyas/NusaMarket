@@ -40,4 +40,10 @@
             <span>Pesanan Masuk</span>
         </a>
     </li>
+    <li>
+        <a href="{{ route('reports.index') }}" class="sidebar-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+            <i class="fas fa-chart-bar"></i>
+            <span>Laporan</span>
+        </a>
+    </li>
 </ul>

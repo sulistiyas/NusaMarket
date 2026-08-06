@@ -9,6 +9,8 @@ use App\Http\Controllers\Web\CatalogController;
 use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CheckoutController;
 use App\Http\Controllers\Web\OrderController;
+use App\Http\Controllers\Web\ReportController;
+use App\Http\Controllers\Api\ReportController as ApiReportController;
 
 // Public / Guest Auth Routes
 Route::middleware('guest')->group(function () {
@@ -48,4 +50,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+    // Reports (Phase 9)
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/export/{type}', [ReportController::class, 'export'])->name('reports.export');
+
+    // Reports API AJAX endpoints (session auth, diakses via JS fetch dari halaman report)
+    Route::prefix('api/v1/reports')->group(function () {
+        Route::get('/chart/revenue',      [ApiReportController::class, 'chartRevenue']);
+        Route::get('/chart/status',       [ApiReportController::class, 'chartStatus']);
+        Route::get('/chart/top-products', [ApiReportController::class, 'chartTopProducts']);
+        Route::get('/chart/user-growth',  [ApiReportController::class, 'chartUserGrowth']);
+        Route::get('/table/summary',      [ApiReportController::class, 'tableSummary']);
+    });
 });
