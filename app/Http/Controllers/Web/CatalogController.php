@@ -18,7 +18,8 @@ class CatalogController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where('name', 'ILIKE', '%' . $request->search . '%');
+            $searchTerm = strtolower($request->search);
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
         }
 
         if ($request->filled('sort')) {

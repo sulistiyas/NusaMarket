@@ -62,10 +62,9 @@
             <div class="product-card">
                 <div class="product-image-wrapper">
                     <img 
-                        src="{{ $product->image_url ? asset('storage/' . $product->image_url) : asset('images/product-placeholder.png') }}" 
+                        src="{{ $product->image_url ? asset('storage/' . $product->image_url) : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f0f6ff"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="20" fill="%231e6fd9">NusaMarket</text></svg>' }}" 
                         alt="{{ $product->name }}" 
                         class="product-image"
-                        onerror="this.src='https://via.placeholder.com/400x300?text=NusaMarket';"
                     >
                     <span class="product-category-badge">
                         {{ $product->category->name ?? 'Umum' }}
