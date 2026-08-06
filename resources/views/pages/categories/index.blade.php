@@ -33,13 +33,13 @@
                 <input 
                     type="text" 
                     x-model="search" 
-                    @input.debounce.400ms="fetchData()" 
+                    @input.debounce.400ms="fetchData(true)" 
                     placeholder="Cari nama kategori..."
                 >
             </div>
             <div class="flex items-center gap-2">
                 <label class="form-label form-label-inline">Tampilkan:</label>
-                <select class="form-control select-per-page" x-model="perPage" @change="fetchData()">
+                <select class="form-control select-per-page" x-model="perPage" @change="fetchData(true)">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -54,10 +54,16 @@
                     <th @click="sort('name')" class="sortable">
                         Nama Kategori <span x-text="sortIcon('name')"></span>
                     </th>
-                    <th>Slug</th>
+                    <th @click="sort('slug')" class="sortable">
+                        Slug <span x-text="sortIcon('slug')"></span>
+                    </th>
                     <th>Deskripsi</th>
-                    <th>Status</th>
-                    <th>Tanggal Dibuat</th>
+                    <th @click="sort('is_active')" class="sortable">
+                        Status <span x-text="sortIcon('is_active')"></span>
+                    </th>
+                    <th @click="sort('created_at')" class="sortable">
+                        Tanggal Dibuat <span x-text="sortIcon('created_at')"></span>
+                    </th>
                     <th class="text-right">Aksi</th>
                 </tr>
             </thead>
@@ -100,12 +106,17 @@
 
         {{-- Pagination --}}
         <div class="dt-pagination">
-            <span x-text="`Halaman ${currentPage} dari ${totalPages}`"></span>
+            <div>
+                Menampilkan <strong x-text="firstItem()"></strong> - <strong x-text="lastItem()"></strong> dari <strong x-text="totalItems"></strong> kategori
+            </div>
             <div class="dt-pagination-buttons">
-                <button class="btn btn-secondary btn-sm" @click="prevPage()" :disabled="currentPage === 1">
+                <button class="btn-page" @click="prevPage()" :disabled="currentPage === 1">
                     <i class="fas fa-chevron-left"></i> Prev
                 </button>
-                <button class="btn btn-secondary btn-sm" @click="nextPage()" :disabled="currentPage === totalPages">
+                <template x-for="p in pageNumbers()" :key="p">
+                    <button class="btn-page" :class="{ 'active': p === currentPage }" @click="gotoPage(p)" x-text="p"></button>
+                </template>
+                <button class="btn-page" @click="nextPage()" :disabled="currentPage === totalPages">
                     Next <i class="fas fa-chevron-right"></i>
                 </button>
             </div>

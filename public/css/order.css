@@ -1,8 +1,248 @@
 /* =============================================
-   order.css — Orders Card & Detail Layout
+   order.css — Orders Card & Detail Layout (Redesign)
    NusaMarket - Blue Ocean Theme UI/UX
    ============================================= */
 
+/* 1. Stat Summary Strip */
+.order-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 979px) {
+    .order-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.order-stat-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+}
+
+.order-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-dark);
+}
+
+.stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-total {
+    background: var(--primary-pale);
+    color: var(--primary);
+}
+
+.stat-icon-pending {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.stat-icon-processing {
+    background: #f3e8ff;
+    color: #8b5cf6;
+}
+
+.stat-icon-completed {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* 2. Segmented Control */
+.segmented-control-container {
+    display: inline-flex;
+    background: #e2e8f0;
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    gap: 4px;
+}
+
+.segmented-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.segmented-btn:hover {
+    color: var(--text-main);
+}
+
+.segmented-btn-active {
+    background: var(--primary-deeper);
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(11, 58, 117, 0.25);
+}
+
+/* 3. Toolbar: Filter Pills, Search, Sort */
+.order-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-pills-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    max-width: 100%;
+}
+
+.filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: var(--transition-fast);
+}
+
+.filter-pill:hover {
+    border-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.filter-pill.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+}
+
+.filter-pill-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.06);
+    color: inherit;
+}
+
+.filter-pill.active .filter-pill-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+.toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box i {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.search-box input {
+    padding: 8px 14px 8px 38px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--bg-white);
+    font-size: var(--text-sm);
+    color: var(--text-main);
+    width: 240px;
+    transition: var(--transition-fast);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 111, 217, 0.15);
+}
+
+.sort-select {
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--bg-white);
+    font-size: var(--text-sm);
+    color: var(--text-main);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* 4. Redesigned Order Card */
 .orders-list {
     display: flex;
     flex-direction: column;
@@ -16,6 +256,11 @@
     box-shadow: var(--shadow-sm);
     padding: 20px;
     transition: var(--transition-smooth);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    position: relative;
 }
 
 .order-card:hover {
@@ -23,81 +268,253 @@
     border-color: var(--border-dark);
 }
 
-.order-card-header {
+/* Status-colored left border */
+.order-card-pending {
+    border-left: 4px solid var(--warning);
+}
+
+.order-card-processing {
+    border-left: 4px solid #8b5cf6;
+}
+
+.order-card-completed {
+    border-left: 4px solid var(--success);
+}
+
+.order-card-cancelled {
+    border-left: 4px solid var(--danger);
+}
+
+/* Main content left side */
+.order-card-main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.order-meta-header {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-bottom: 14px;
-    margin-bottom: 14px;
-    border-bottom: 1px solid var(--border);
+    gap: 14px;
 }
 
-.order-number {
+.order-code-mono {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
     font-weight: 700;
-    font-size: var(--text-base);
-    color: var(--primary);
+    font-size: 1.05rem;
+    color: var(--primary-deeper);
+    letter-spacing: 0.5px;
 }
 
-.order-date {
-    font-size: var(--text-xs);
+.order-submeta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.8125rem;
     color: var(--text-muted);
-    margin-left: 8px;
 }
 
-.order-items-preview {
+.order-submeta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.order-submeta-item i {
+    color: var(--primary);
+    font-size: 0.95rem;
+}
+
+/* Items list preview */
+.order-items-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 8px;
+    margin-top: 4px;
 }
 
 .order-item-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     font-size: var(--text-sm);
+}
+
+.order-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.order-item-thumb {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--primary-pale);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
 }
 
 .order-item-name {
     font-weight: 500;
     color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .order-item-qty {
     color: var(--text-muted);
-    font-size: var(--text-xs);
-    margin-left: 6px;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    flex-shrink: 0;
 }
 
 .order-item-price {
     font-weight: 600;
     color: var(--text-main);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.order-card-footer {
+.btn-toggle-items {
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 2px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    transition: var(--transition-fast);
+}
+
+.btn-toggle-items:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Right section of order card */
+.order-card-right {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-end;
     justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding-top: 14px;
-    border-top: 1px dashed var(--border);
+    gap: 14px;
+    height: 100%;
+    padding-left: 20px;
+    border-left: 1px dashed var(--border);
 }
 
-.order-store-info {
-    font-size: var(--text-xs);
+.order-status-badge {
+    align-self: flex-end;
+}
+
+.order-total-block {
+    text-align: right;
+}
+
+.order-total-label {
+    display: block;
+    font-size: 0.75rem;
     color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
-.order-total-price {
-    font-size: var(--text-lg);
+.order-total-value {
+    font-size: 1.25rem;
     font-weight: 800;
     color: var(--primary);
+}
+
+.btn-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--primary-pale);
+    color: var(--primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.btn-detail:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Badge dot processing override */
+.badge-purple {
+    background-color: #f3e8ff;
+    color: #7e22ce;
+    border: 1px solid #e9d5ff;
+}
+
+.badge-purple .badge-dot {
+    background-color: #9333ea;
+}
+
+/* Responsive layout (<980px) */
+@media (max-width: 979px) {
+    .order-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .order-card-right {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 0;
+        padding-top: 14px;
+        border-left: none;
+        border-top: 1px dashed var(--border);
+    }
+
+    .order-status-badge {
+        align-self: center;
+    }
+
+    .order-total-block {
+        text-align: left;
+    }
+}
+
+@media (max-width: 576px) {
+    .order-card-right {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .order-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toolbar-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
 }

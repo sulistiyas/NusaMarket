@@ -15,23 +15,28 @@ trait ApiResponse
 
     protected function paginated($paginator, string $message = 'Success')
     {
-        // Paginator can be LengthAwarePaginator or ResourceCollection
+        // Paginator can be LengthAwarePaginator or ResourceCollection wrapping LengthAwarePaginator
+        $target = $paginator;
+        if (is_object($paginator) && property_exists($paginator, 'resource') && is_object($paginator->resource)) {
+            $target = $paginator->resource;
+        }
+
         $items = method_exists($paginator, 'items') ? $paginator->items() : $paginator;
         
-        $currentPage = method_exists($paginator, 'currentPage') ? $paginator->currentPage() : 1;
-        $lastPage = method_exists($paginator, 'lastPage') ? $paginator->lastPage() : 1;
-        $perPage = method_exists($paginator, 'perPage') ? $paginator->perPage() : count($items);
-        $total = method_exists($paginator, 'total') ? $paginator->total() : count($items);
+        $currentPage = method_exists($target, 'currentPage') ? $target->currentPage() : 1;
+        $lastPage = method_exists($target, 'lastPage') ? $target->lastPage() : 1;
+        $perPage = method_exists($target, 'perPage') ? $target->perPage() : (is_countable($items) ? count($items) : 10);
+        $total = method_exists($target, 'total') ? $target->total() : (is_countable($items) ? count($items) : 0);
 
         return response()->json([
             'success' => true,
             'message' => $message,
             'data'    => $items,
             'meta'    => [
-                'current_page' => $currentPage,
-                'last_page'    => $lastPage,
-                'per_page'     => $perPage,
-                'total'        => $total,
+                'current_page' => (int) $currentPage,
+                'last_page'    => (int) $lastPage,
+                'per_page'     => (int) $perPage,
+                'total'        => (int) $total,
             ],
         ]);
     }

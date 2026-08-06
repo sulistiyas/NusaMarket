@@ -23,8 +23,18 @@ class ProductService
             $query->where('store_id', $filters['store_id']);
         }
 
-        $perPage = $filters['per_page'] ?? 10;
-        return $query->latest()->paginate($perPage);
+        $sortBy = $filters['sort_by'] ?? 'id';
+        $sortOrder = strtolower($filters['sort_order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+        $allowedSorts = ['name', 'price', 'stock', 'created_at', 'id'];
+
+        if (in_array($sortBy, $allowedSorts)) {
+            $query->orderBy($sortBy, $sortOrder);
+        } else {
+            $query->latest();
+        }
+
+        $perPage = (int) ($filters['per_page'] ?? 10);
+        return $query->paginate($perPage);
     }
 
     public function create(array $data, int $storeId): Product

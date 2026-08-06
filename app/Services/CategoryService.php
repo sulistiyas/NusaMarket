@@ -15,8 +15,18 @@ class CategoryService
             $query->where('name', 'ilike', '%' . $filters['search'] . '%');
         }
 
-        $perPage = $filters['per_page'] ?? 10;
-        return $query->latest()->paginate($perPage);
+        $sortBy = $filters['sort_by'] ?? 'id';
+        $sortOrder = strtolower($filters['sort_order'] ?? 'desc') === 'asc' ? 'asc' : 'desc';
+        $allowedSorts = ['name', 'slug', 'is_active', 'created_at', 'id'];
+
+        if (in_array($sortBy, $allowedSorts)) {
+            $query->orderBy($sortBy, $sortOrder);
+        } else {
+            $query->latest();
+        }
+
+        $perPage = (int) ($filters['per_page'] ?? 10);
+        return $query->paginate($perPage);
     }
 
     public function create(array $data): Category

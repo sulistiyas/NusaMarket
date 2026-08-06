@@ -85,22 +85,56 @@ class OrderService
     }
 
     /**
-     * Get orders for a user (buyer or seller store).
+     * Get counts per status for a user (buyer or seller store).
      */
-    public function getUserOrders(int $userId, ?string $role = 'buyer', ?string $status = null)
+    public function getOrderCounts(int $userId, ?string $role = 'buyer'): array
     {
-        $query = Order::with(['items.product', 'store', 'buyer']);
+        $baseQuery = Order::query();
 
         if ($role === 'seller') {
-            $query->whereHas('store', function ($q) use ($userId) {
-                // If the user has stores, filter by user's stores. If user is admin without specific store, show all seller orders!
+            $baseQuery->whereHas('store', function ($q) use ($userId) {
                 $userStoresCount = \App\Models\Store::where('user_id', $userId)->count();
                 if ($userStoresCount > 0) {
                     $q->where('user_id', $userId);
                 }
             });
         } else {
-            // For buyer view: if user is admin and has no buyer orders, show orders or filter by buyer_id
+            $userOrdersCount = Order::where('buyer_id', $userId)->count();
+            if ($userOrdersCount > 0 || auth()->user()?->role !== 'admin') {
+                $baseQuery->where('buyer_id', $userId);
+            }
+        }
+
+        $counts = (clone $baseQuery)
+            ->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
+
+        return [
+            'total' => array_sum($counts),
+            'pending' => $counts['pending'] ?? 0,
+            'processing' => $counts['processing'] ?? 0,
+            'completed' => $counts['completed'] ?? 0,
+            'cancelled' => $counts['cancelled'] ?? 0,
+        ];
+    }
+
+    /**
+     * Get orders for a user (buyer or seller store).
+     */
+    public function getUserOrders(int $userId, ?string $role = 'buyer', ?string $status = null, ?string $search = null, ?string $sort = 'latest', int $perPage = 10)
+    {
+        $query = Order::with(['items.product', 'store', 'buyer']);
+
+        if ($role === 'seller') {
+            $query->whereHas('store', function ($q) use ($userId) {
+                $userStoresCount = \App\Models\Store::where('user_id', $userId)->count();
+                if ($userStoresCount > 0) {
+                    $q->where('user_id', $userId);
+                }
+            });
+        } else {
             $userOrdersCount = Order::where('buyer_id', $userId)->count();
             if ($userOrdersCount > 0 || auth()->user()?->role !== 'admin') {
                 $query->where('buyer_id', $userId);
@@ -111,7 +145,25 @@ class OrderService
             $query->where('status', $status);
         }
 
-        return $query->latest()->get();
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('order_number', 'like', "%{$search}%")
+                  ->orWhereHas('store', function ($sq) use ($search) {
+                      $sq->where('name', 'like', "%{$search}%");
+                  })
+                  ->orWhereHas('items', function ($iq) use ($search) {
+                      $iq->where('product_name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        if ($sort === 'oldest') {
+            $query->oldest();
+        } else {
+            $query->latest();
+        }
+
+        return $query->paginate($perPage)->withQueryString();
     }
 
     /**

@@ -21,14 +21,21 @@ class OrderController extends Controller
     {
         $role = $request->get('role', 'buyer');
         $status = $request->get('status');
+        $search = $request->get('search');
+        $sort = $request->get('sort', 'latest');
 
-        $orders = $this->orderService->getUserOrders(auth()->id(), $role, $status);
+        $userId = auth()->id();
+        $statusCounts = $this->orderService->getOrderCounts($userId, $role);
+        $orders = $this->orderService->getUserOrders($userId, $role, $status, $search, $sort);
 
         return view('pages.orders.index', [
             'breadcrumbs' => ['Daftar Pesanan' => route('orders.index')],
             'orders' => $orders,
+            'statusCounts' => $statusCounts,
             'currentRole' => $role,
             'currentStatus' => $status,
+            'search' => $search,
+            'sort' => $sort,
         ]);
     }
 
