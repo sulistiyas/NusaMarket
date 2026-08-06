@@ -21,7 +21,7 @@
             @foreach($cartItems as $item)
                 <div class="cart-item-row" id="cart-item-{{ $item->id }}">
                     <img 
-                        src="{{ $item->product->image_url ? asset('storage/' . $item->product->image_url) : 'https://via.placeholder.com/150?text=NusaMarket' }}" 
+                        src="{{ $item->product->image_url ? asset('storage/' . $item->product->image_url) : asset('images/product-placeholder.png') }}" 
                         alt="{{ $item->product->name }}" 
                         class="cart-item-img"
                     >
