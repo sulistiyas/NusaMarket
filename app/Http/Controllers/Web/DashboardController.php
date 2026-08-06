@@ -7,22 +7,33 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 
+use Illuminate\Http\Request;
+
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $totalSales = Order::where('payment_status', 'paid')->sum('total_amount');
         $totalOrders = Order::count();
         $totalProducts = Product::count();
         $totalUsers = User::count();
-        $recentOrders = Order::with(['buyer', 'store'])->latest()->take(5)->get();
+
+        $status = $request->get('status');
+        $query = Order::with(['buyer', 'store']);
+
+        if (!empty($status)) {
+            $query->where('status', $status);
+        }
+
+        $recentOrders = $query->latest()->paginate(5)->withQueryString();
 
         return view('pages.dashboard', compact(
             'totalSales',
             'totalOrders',
             'totalProducts',
             'totalUsers',
-            'recentOrders'
+            'recentOrders',
+            'status'
         ));
     }
 }

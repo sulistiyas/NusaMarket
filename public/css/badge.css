@@ -80,3 +80,9 @@
     color: #475569;
     border-color: #e2e8f0;
 }
+
+.badge-purple {
+    background: #f3e8ff;
+    color: #6b21a8;
+    border-color: rgba(147, 51, 234, 0.25);
+}

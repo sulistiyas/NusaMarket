@@ -518,3 +518,441 @@
         width: 100%;
     }
 }
+
+/* 5. Order Detail View Styles */
+.order-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.order-detail-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.order-detail-code {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    color: var(--primary);
+    background: var(--primary-pale);
+    padding: 2px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(30, 111, 217, 0.2);
+}
+
+.order-detail-subtitle {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.order-detail-subtitle i {
+    color: var(--primary);
+}
+
+.order-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 899px) {
+    .order-detail-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.detail-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.detail-card:last-child {
+    margin-bottom: 0;
+}
+
+.detail-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-card-title i {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+/* Detail Product List */
+.product-detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.product-detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.product-detail-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.product-detail-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--primary-pale);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.product-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.product-detail-name {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: var(--text-base);
+}
+
+.product-detail-meta {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+}
+
+.product-detail-subtotal {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--primary-deeper);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.product-detail-summary {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.product-detail-summary-value {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+/* Info Address & Shipping */
+.info-rows-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.info-row-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.info-row-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--primary-pale);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.info-row-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info-row-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+.info-row-value {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Status Pesanan & Timeline */
+.status-badge-lg {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.status-badge-pending {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+.status-badge-processing {
+    background: #f3e8ff;
+    color: #6b21a8;
+    border: 1px solid #e9d5ff;
+}
+
+.status-badge-completed {
+    background: #d1fae5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+}
+
+.status-badge-cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+/* Vertical Timeline */
+.order-timeline {
+    position: relative;
+    padding-left: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.order-timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -28px;
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    z-index: 1;
+}
+
+/* Step passed: green dot + white check */
+.timeline-step-passed .timeline-dot {
+    background: var(--success);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px #d1fae5;
+}
+
+/* Step current: yellow dot + white clock icon */
+.timeline-step-current .timeline-dot {
+    background: var(--warning);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px #fef3c7;
+}
+
+/* Step future: gray outline dot */
+.timeline-step-future .timeline-dot {
+    background: var(--bg-white);
+    border: 2px solid #94a3b8;
+    color: transparent;
+}
+
+/* Step cancelled */
+.timeline-step-cancelled .timeline-dot {
+    background: var(--danger);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px #fee2e2;
+}
+
+.timeline-title {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-main);
+}
+
+.timeline-step-future .timeline-title {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.timeline-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Status Form Action */
+.status-update-box {
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+}
+
+.status-update-box label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.status-update-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.status-select-control {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--bg-white);
+    font-size: var(--text-sm);
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.status-select-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 111, 217, 0.15);
+}
+
+.btn-submit-status {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-submit-status:hover {
+    background: var(--primary-dark);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Payment Summary */
+.payment-detail-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.payment-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.payment-detail-value {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.payment-total-divider {
+    border: none;
+    border-top: 2px solid var(--text-main);
+    margin: 16px 0 12px;
+}
+
+.payment-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-total-label {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.payment-total-value {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
