@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 
+use App\Models\Category;
+
 class CartController extends Controller
 {
     protected CartService $cartService;
@@ -19,11 +21,13 @@ class CartController extends Controller
     {
         $cartItems = $this->cartService->getUserCart(auth()->id());
         $total = $this->cartService->calculateTotal(auth()->id());
+        $categories = Category::where('is_active', true)->take(6)->get();
 
         return view('pages.cart.index', [
             'breadcrumbs' => ['Keranjang Belanja' => route('cart.index')],
             'cartItems' => $cartItems,
             'total' => $total,
+            'categories' => $categories,
         ]);
     }
 

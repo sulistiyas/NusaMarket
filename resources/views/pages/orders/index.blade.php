@@ -7,6 +7,19 @@
 @endpush
 
 @section('content')
+{{-- Page Loading Overlay (server-side navigation) --}}
+<div id="pageLoadingOverlay" class="page-loading-overlay">
+    <div class="page-loading-card">
+        <div class="page-spinner"></div>
+        <div class="page-loading-label">
+            Memuat data
+            <div class="page-loading-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="catalog-header mb-6">
     <div>
         <h1 class="text-2xl font-bold">Daftar Pesanan</h1>
@@ -243,3 +256,7 @@
     </div>
 @endif
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/page-loading.js') }}"></script>
+@endpush

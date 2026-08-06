@@ -48,61 +48,75 @@
         </div>
 
         {{-- Table --}}
-        <table class="dt-table">
-            <thead>
-                <tr>
-                    <th @click="sort('name')" class="sortable">
-                        Nama Kategori <span x-text="sortIcon('name')"></span>
-                    </th>
-                    <th @click="sort('slug')" class="sortable">
-                        Slug <span x-text="sortIcon('slug')"></span>
-                    </th>
-                    <th>Deskripsi</th>
-                    <th @click="sort('is_active')" class="sortable">
-                        Status <span x-text="sortIcon('is_active')"></span>
-                    </th>
-                    <th @click="sort('created_at')" class="sortable">
-                        Tanggal Dibuat <span x-text="sortIcon('created_at')"></span>
-                    </th>
-                    <th class="text-right">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template x-for="row in rows" :key="row.id">
+        <div class="dt-table-wrapper">
+
+            {{-- Loading Overlay --}}
+            <div class="dt-loading-overlay" x-show="loading" x-transition.opacity style="display: none;">
+                <div class="dt-spinner"></div>
+                <div class="dt-loading-text">
+                    Memuat data
+                    <div class="dt-loading-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="dt-table">
+                <thead>
                     <tr>
-                        <td>
-                            <strong x-text="row.name"></strong>
-                        </td>
-                        <td x-text="row.slug"></td>
-                        <td x-text="row.description || '-'"></td>
-                        <td>
-                            <template x-if="row.is_active">
-                                <span class="badge badge-success">AKTIF</span>
-                            </template>
-                            <template x-if="!row.is_active">
-                                <span class="badge badge-danger">NON-AKTIF</span>
-                            </template>
-                        </td>
-                        <td x-text="row.created_at ? new Date(row.created_at).toLocaleDateString('id-ID') : '-'"></td>
-                        <td class="text-right">
-                            <form :action="`{{ url('/categories') }}/${row.id}`" method="POST" class="form-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                        <th @click="sort('name')" class="sortable">
+                            Nama Kategori <span x-text="sortIcon('name')"></span>
+                        </th>
+                        <th @click="sort('slug')" class="sortable">
+                            Slug <span x-text="sortIcon('slug')"></span>
+                        </th>
+                        <th>Deskripsi</th>
+                        <th @click="sort('is_active')" class="sortable">
+                            Status <span x-text="sortIcon('is_active')"></span>
+                        </th>
+                        <th @click="sort('created_at')" class="sortable">
+                            Tanggal Dibuat <span x-text="sortIcon('created_at')"></span>
+                        </th>
+                        <th class="text-right">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="row in rows" :key="row.id">
+                        <tr>
+                            <td>
+                                <strong x-text="row.name"></strong>
+                            </td>
+                            <td x-text="row.slug"></td>
+                            <td x-text="row.description || '-'"></td>
+                            <td>
+                                <template x-if="row.is_active">
+                                    <span class="badge badge-success">AKTIF</span>
+                                </template>
+                                <template x-if="!row.is_active">
+                                    <span class="badge badge-danger">NON-AKTIF</span>
+                                </template>
+                            </td>
+                            <td x-text="row.created_at ? new Date(row.created_at).toLocaleDateString('id-ID') : '-'"></td>
+                            <td class="text-right">
+                                <form :action="`{{ url('/categories') }}/${row.id}`" method="POST" class="form-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </template>
+                    <tr x-show="rows.length === 0 && !loading">
+                        <td colspan="6" class="text-center empty-cell">
+                            <i class="fas fa-folder-open fa-2x mb-2 empty-icon"></i>
+                            Tidak ada data kategori ditemukan.
                         </td>
                     </tr>
-                </template>
-                <tr x-show="rows.length === 0 && !loading">
-                    <td colspan="6" class="text-center empty-cell">
-                        <i class="fas fa-folder-open fa-2x mb-2 empty-icon"></i>
-                        Tidak ada data kategori ditemukan.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
         {{-- Pagination --}}
         <div class="dt-pagination">

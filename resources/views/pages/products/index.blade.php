@@ -50,81 +50,95 @@
         </div>
 
         {{-- Table --}}
-        <table class="dt-table">
-            <thead>
-                <tr>
-                    <th @click="sort('name')" class="sortable">
-                        Produk <span x-text="sortIcon('name')"></span>
-                    </th>
-                    <th>Kategori</th>
-                    <th @click="sort('price')" class="sortable">
-                        Harga <span x-text="sortIcon('price')"></span>
-                    </th>
-                    <th @click="sort('stock')" class="sortable">
-                        Stok <span x-text="sortIcon('stock')"></span>
-                    </th>
-                    <th>Status</th>
-                    <th class="text-right">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template x-for="row in rows" :key="row.id">
+        <div class="dt-table-wrapper">
+
+            {{-- Loading Overlay --}}
+            <div class="dt-loading-overlay" x-show="loading" x-transition.opacity style="display: none;">
+                <div class="dt-spinner"></div>
+                <div class="dt-loading-text">
+                    Memuat data
+                    <div class="dt-loading-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="dt-table">
+                <thead>
                     <tr>
-                        <td>
-                            <div class="flex items-center gap-2">
-                                <template x-if="row.images && row.images.length > 0">
-                                    <img :src="row.images[0]" style="width: 40px; height: 40px; border-radius: 6px; object-fit: cover;">
-                                </template>
-                                <template x-if="!row.images || row.images.length === 0">
-                                    <div style="width: 40px; height: 40px; border-radius: 6px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
-                                        <i class="fas fa-box"></i>
+                        <th @click="sort('name')" class="sortable">
+                            Produk <span x-text="sortIcon('name')"></span>
+                        </th>
+                        <th>Kategori</th>
+                        <th @click="sort('price')" class="sortable">
+                            Harga <span x-text="sortIcon('price')"></span>
+                        </th>
+                        <th @click="sort('stock')" class="sortable">
+                            Stok <span x-text="sortIcon('stock')"></span>
+                        </th>
+                        <th>Status</th>
+                        <th class="text-right">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="row in rows" :key="row.id">
+                        <tr>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <template x-if="row.images && row.images.length > 0">
+                                        <img :src="row.images[0]" style="width: 40px; height: 40px; border-radius: 6px; object-fit: cover;">
+                                    </template>
+                                    <template x-if="!row.images || row.images.length === 0">
+                                        <div style="width: 40px; height: 40px; border-radius: 6px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                                            <i class="fas fa-box"></i>
+                                        </div>
+                                    </template>
+                                    <div>
+                                        <a :href="`{{ url('/products') }}/${row.id}`" style="font-weight: 600;" x-text="row.name"></a>
+                                        <div style="font-size: var(--text-xs); color: var(--text-muted);" x-text="row.store_name"></div>
                                     </div>
-                                </template>
-                                <div>
-                                    <a :href="`{{ url('/products') }}/${row.id}`" style="font-weight: 600;" x-text="row.name"></a>
-                                    <div style="font-size: var(--text-xs); color: var(--text-muted);" x-text="row.store_name"></div>
                                 </div>
-                            </div>
-                        </td>
-                        <td x-text="row.category ? row.category.name : '-'"></td>
-                        <td>
-                            <strong style="color: var(--primary-deeper);" x-text="row.formatted_price"></strong>
-                        </td>
-                        <td>
-                            <span class="badge" :class="row.stock > 10 ? 'badge-primary' : (row.stock > 0 ? 'badge-warning' : 'badge-danger')" x-text="`${row.stock} unit`"></span>
-                        </td>
-                        <td>
-                            <template x-if="row.is_active">
-                                <span class="badge badge-success">AKTIF</span>
-                            </template>
-                            <template x-if="!row.is_active">
-                                <span class="badge badge-danger">NON-AKTIF</span>
-                            </template>
-                        </td>
-                        <td class="text-right">
-                            <div class="flex justify-end gap-2">
-                                <a :href="`{{ url('/products') }}/${row.id}/edit`" class="btn btn-secondary btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form :action="`{{ url('/products') }}/${row.id}`" method="POST" style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
+                            </td>
+                            <td x-text="row.category ? row.category.name : '-'"></td>
+                            <td>
+                                <strong style="color: var(--primary-deeper);" x-text="row.formatted_price"></strong>
+                            </td>
+                            <td>
+                                <span class="badge" :class="row.stock > 10 ? 'badge-primary' : (row.stock > 0 ? 'badge-warning' : 'badge-danger')" x-text="`${row.stock} unit`"></span>
+                            </td>
+                            <td>
+                                <template x-if="row.is_active">
+                                    <span class="badge badge-success">AKTIF</span>
+                                </template>
+                                <template x-if="!row.is_active">
+                                    <span class="badge badge-danger">NON-AKTIF</span>
+                                </template>
+                            </td>
+                            <td class="text-right">
+                                <div class="flex justify-end gap-2">
+                                    <a :href="`{{ url('/products') }}/${row.id}/edit`" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form :action="`{{ url('/products') }}/${row.id}`" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    <tr x-show="rows.length === 0 && !loading">
+                        <td colspan="6" class="text-center" style="padding: 30px; color: var(--text-muted);">
+                            <i class="fas fa-box-open fa-2x mb-2" style="display: block;"></i>
+                            Belum ada produk yang ditemukan.
                         </td>
                     </tr>
-                </template>
-                <tr x-show="rows.length === 0 && !loading">
-                    <td colspan="6" class="text-center" style="padding: 30px; color: var(--text-muted);">
-                        <i class="fas fa-box-open fa-2x mb-2" style="display: block;"></i>
-                        Belum ada produk yang ditemukan.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
         {{-- Pagination --}}
         <div class="dt-pagination">
