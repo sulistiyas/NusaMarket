@@ -1,56 +1,118 @@
 /* =============================================
    form.css — Form Inputs & Controls
+   NusaMarket - Blue Ocean Theme UI/UX
    ============================================= */
+
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .form-label {
     font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text-main);
+    font-weight: 700;
+    color: var(--primary-deeper);
+    letter-spacing: -0.01em;
 }
 
 .form-label .required {
     color: var(--danger);
+    margin-left: 2px;
 }
 
 .form-control {
     width: 100%;
-    padding: 10px 14px;
+    padding: 10px 16px;
     font-size: var(--text-sm);
+    font-family: inherit;
     color: var(--text-main);
     background-color: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
     min-height: 44px;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+}
+
+.form-control:hover {
+    border-color: var(--border-dark);
 }
 
 .form-control:focus {
-    outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--primary-pale);
+    box-shadow: 0 0 0 4px rgba(30, 111, 217, 0.15);
+    background-color: #ffffff;
+}
+
+/* Custom Native Select Dropdown Styling (Fallthrough & Default for non-Select2 selects) */
+select.form-control:not(.select2-hidden-accessible):not(.select2),
+select:not(.select2-hidden-accessible):not(.select2) {
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    padding: 10px 40px 10px 16px;
+    font-size: var(--text-sm);
+    font-family: inherit;
+    color: var(--text-main);
+    background-color: var(--bg-white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230b3a75' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+select.form-control:not(.select2-hidden-accessible):not(.select2):focus,
+select:not(.select2-hidden-accessible):not(.select2):focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(30, 111, 217, 0.15);
+}
+
+/* Hidden accessible Select2 element reset */
+select.select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
 }
 
 textarea.form-control {
-    min-height: 100px;
+    min-height: 110px;
     resize: vertical;
+    line-height: 1.5;
 }
 
 .form-feedback {
     font-size: var(--text-xs);
     color: var(--danger);
+    font-weight: 600;
     margin-top: 2px;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 20px;
 }
 
 @media (min-width: 768px) {
@@ -58,30 +120,253 @@ textarea.form-control {
     .form-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Select2 Custom Blue Ocean Theme Overrides */
+/* =============================================
+   Input Group & Form Extensions
+   ============================================= */
+.input-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border-radius: var(--radius-md);
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex: 1;
+}
+
+.input-group-addon {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--primary-deeper);
+    background-color: var(--bg-light);
+    border: 1.5px solid var(--border);
+    border-left: 0;
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    user-select: none;
+    white-space: nowrap;
+}
+
+.form-section-divider {
+    border: 0;
+    border-top: 1px dashed var(--border);
+    margin: 24px 0 20px 0;
+}
+
+.form-section-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--primary-deeper);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-section-title i {
+    color: var(--primary);
+}
+
+.image-preview-card {
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    background-color: var(--bg-light);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    transition: var(--transition-fast);
+}
+
+.image-preview-card:hover {
+    border-color: var(--primary);
+    background-color: #ffffff;
+}
+
+.image-preview-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background-color: #ffffff;
+}
+
+.image-preview-placeholder {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-sm);
+    background-color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 24px;
+}
+
+.image-preview-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.image-preview-info .filename {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--primary-deeper);
+    word-break: break-all;
+}
+
+.image-preview-info .filesize {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+/* =============================================
+   Select2 Blue Ocean Theme Overrides
+   ============================================= */
+.select2-container {
+    width: 100% !important;
+    display: block !important;
+}
+
 .select2-container--default .select2-selection--single {
     height: 44px !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius) !important;
-    padding: 8px 12px !important;
+    border: 1.5px solid var(--border) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 8px 14px !important;
+    background-color: var(--bg-white) !important;
+    transition: var(--transition-fast) !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(30, 111, 217, 0.15) !important;
+    outline: none !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: var(--text-main) !important;
     line-height: 26px !important;
     padding-left: 0 !important;
+    padding-right: 20px !important;
+    font-size: var(--text-sm) !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: var(--text-light) !important;
+    font-weight: 400 !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 42px !important;
+    right: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: var(--primary-deeper) transparent transparent transparent !important;
+    border-width: 6px 5px 0 5px !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent var(--primary-deeper) transparent !important;
+    border-width: 0 5px 6px 5px !important;
 }
 
 .select2-dropdown {
-    border-color: var(--border-dark) !important;
-    box-shadow: var(--shadow-md) !important;
-    border-radius: var(--radius) !important;
+    border: 1px solid var(--border-dark) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+    background-color: var(--bg-white) !important;
+    z-index: 1060 !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
+
+.select2-results__option {
+    padding: 10px 16px !important;
+    font-size: var(--text-sm) !important;
+    transition: var(--transition-fast) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: var(--text-main) !important;
+}
+
+.select2-results__option i {
+    color: var(--primary);
+    width: 18px;
+    text-align: center;
+    font-size: 15px;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: var(--primary) !important;
+    color: #ffffff !important;
 }
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] i {
+    color: #ffffff !important;
+}
+
+.select2-container--default .select2-results__option[aria-selected="true"] {
+    background-color: var(--primary-pale) !important;
+    color: var(--primary-dark) !important;
+    font-weight: 600 !important;
+}
+
+.select2-search--dropdown {
+    padding: 8px 12px !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1.5px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important;
+    padding: 8px 12px !important;
+    font-size: var(--text-sm) !important;
+    outline: none !important;
+    transition: var(--transition-fast) !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(30, 111, 217, 0.15) !important;
+}
+
+.select2-option-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background-color: var(--primary-pale);
+    color: var(--primary);
+    font-size: 13px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] .select2-option-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+

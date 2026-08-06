@@ -41,10 +41,10 @@
             @include('components.alert')
 
             @yield('content')
+
+            @include('components.footer')
         </main>
     </div>
-
-    @include('components.footer')
 
     {{-- JS per-halaman --}}
     @stack('scripts')

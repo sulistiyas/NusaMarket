@@ -1,5 +1,5 @@
 /* =============================================
-   app.css — Root CSS Entry Point (Blue Ocean Theme)
+   app.css — Root CSS Entry Point (Modern Blue Ocean Theme)
    ============================================= */
 
 /* 1. Import Partials MUST be at the very top */
@@ -10,70 +10,113 @@
 @import './form.css';
 @import './card.css';
 @import './badge.css';
+@import './datatable.css';
 @import './auth.css';
 @import './responsive.css';
 
-/* 2. CSS Custom Properties — Blue Ocean Theme */
+/* 2. CSS Custom Properties — Ultra-Modern Blue Ocean Design System */
 :root {
     /* === PRIMARY BLUE PALETTE === */
-    --primary:          #1e6fd9;   /* Biru utama */
-    --primary-dark:     #1251a3;   /* Biru gelap */
-    --primary-deeper:   #0b3a75;   /* Biru sangat gelap / navy */
-    --primary-light:    #4f97f0;   /* Biru terang */
-    --primary-pale:     #dbeafe;   /* Biru pucat (background highlight) */
+    --primary:          #1e6fd9;   /* Vibrant primary blue */
+    --primary-dark:     #1251a3;   /* Deep hover blue */
+    --primary-deeper:   #0b3a75;   /* Deep midnight navy */
+    --primary-light:    #3b82f6;   /* Bright electric blue */
+    --primary-pale:     #eff6ff;   /* Soft ambient pale highlight */
 
     /* === OCEAN / TEAL ACCENT === */
-    --ocean:            #0e7490;   /* Biru laut / teal */
-    --ocean-dark:       #075985;   /* Biru laut gelap */
-    --ocean-light:      #38bdf8;   /* Biru laut terang / sky */
-    --ocean-pale:       #e0f2fe;   /* Biru laut pucat */
+    --ocean:            #0e7490;   /* Rich ocean teal */
+    --ocean-dark:       #0369a1;   /* Dark sky/ocean */
+    --ocean-light:      #38bdf8;   /* Vivid sky teal */
+    --ocean-pale:       #f0f9ff;   /* Soft pale ocean glow */
+
+    /* === GLASSMORPHISM TOKENS === */
+    --glass-bg:         rgba(255, 255, 255, 0.75);
+    --glass-bg-hover:   rgba(255, 255, 255, 0.88);
+    --glass-border:     rgba(255, 255, 255, 0.6);
+    --glass-border-dark: rgba(226, 232, 240, 0.8);
+    --glass-shadow:     0 8px 32px 0 rgba(14, 116, 144, 0.08);
+    --backdrop-blur:    blur(16px);
 
     /* === GRADIENT PRESETS === */
     --gradient-primary: linear-gradient(135deg, #1e6fd9 0%, #0b3a75 100%);
     --gradient-ocean:   linear-gradient(135deg, #0e7490 0%, #1e6fd9 100%);
-    --gradient-sidebar: linear-gradient(180deg, #0b3a75 0%, #0e7490 100%);
-    --gradient-header:  linear-gradient(90deg,  #1251a3 0%, #0e7490 100%);
+    --gradient-vivid:   linear-gradient(135deg, #38bdf8 0%, #1e6fd9 50%, #0b3a75 100%);
+    --gradient-sidebar: linear-gradient(180deg, #071e3d 0%, #0b3a75 60%, #0e7490 100%);
+    --gradient-header:  linear-gradient(90deg,  #0b3a75 0%, #1251a3 50%, #0e7490 100%);
+    --gradient-glass:   linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
 
     /* === SEMANTIC COLORS === */
-    --success:          #16a34a;
-    --danger:           #dc2626;
-    --warning:          #d97706;
-    --info:             #0891b2;
+    --success:          #10b981;
+    --success-light:    #d1fae5;
+    --danger:           #ef4444;
+    --danger-light:     #fee2e2;
+    --warning:          #f59e0b;
+    --warning-light:    #fef3c7;
+    --info:             #06b6d4;
+    --info-light:       #cffaff;
 
-    /* === BACKGROUND === */
-    --bg-light:         #f0f6ff;   /* Sedikit kebiru-biruan */
+    /* === BACKGROUND & SURFACE === */
+    --bg-light:         #f4f8fc;   /* Soft crisp ambient light background */
     --bg-white:         #ffffff;
-    --bg-sidebar:       #0b3a75;   /* Navy untuk sidebar */
-    --bg-header:        #1251a3;   /* Biru gelap untuk header */
+    --bg-sidebar:       #071e3d;   /* Rich dark navy for sidebar */
+    --bg-header:        #0b3a75;   /* Glass header base */
+    --surface-hover:    #f8fafc;
 
-    /* === TEXT === */
+    /* === TEXT & TYPOGRAPHY === */
     --text-main:        #0f172a;
-    --text-muted:       #475569;
-    --text-on-primary:  #ffffff;   /* Teks di atas background biru */
-    --text-on-sidebar:  #bfdbfe;   /* Teks menu sidebar (biru pucat) */
+    --text-muted:       #64748b;
+    --text-light:       #94a3b8;
+    --text-on-primary:  #ffffff;   /* Text over primary background */
+    --text-on-sidebar:  #93c5fd;   /* Muted text on sidebar menu */
     --text-sidebar-active: #ffffff;
 
-    /* === BORDER & SHADOW === */
-    --border:           #bfdbfe;   /* Border bernuansa biru */
-    --border-dark:      #93c5fd;
-    --radius:           8px;
-    --radius-lg:        12px;
-    --shadow-sm:        0 1px 3px rgba(14, 116, 144, 0.12);
-    --shadow-md:        0 4px 12px rgba(14, 116, 144, 0.15);
-    --shadow-primary:   0 4px 16px rgba(30, 111, 217, 0.25);
+    /* === BORDER RADIUS SYSTEM === */
+    --radius-xs:        4px;
+    --radius-sm:        6px;
+    --radius-md:        10px;
+    --radius-lg:        16px;
+    --radius-xl:        24px;
+    --radius-pill:      9999px;
 
-    /* === LAYOUT === */
+    /* === LAYERED SOFT SHADOWS === */
+    --border:           #e2e8f0;   /* Modern crisp subtle border */
+    --border-dark:      #cbd5e1;
+    --shadow-xs:        0 1px 2px 0 rgba(15, 23, 42, 0.05);
+    --shadow-sm:        0 2px 6px 0 rgba(14, 116, 144, 0.06);
+    --shadow-md:        0 6px 20px -4px rgba(14, 116, 144, 0.12);
+    --shadow-lg:        0 12px 32px -6px rgba(14, 116, 144, 0.16);
+    --shadow-xl:        0 20px 48px -10px rgba(11, 58, 117, 0.22);
+    --shadow-primary:   0 8px 24px -4px rgba(30, 111, 217, 0.35);
+    --shadow-ocean:     0 8px 24px -4px rgba(14, 116, 144, 0.35);
+
+    /* === TRANSITION PRESETS === */
+    --transition-fast:   all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* === LAYOUT DIMENSIONS === */
     --sidebar-width:    260px;
     --sidebar-collapsed: 64px;
-    --header-height:    64px;
+    --header-height:    70px;
 }
 
-/* 3. Reset & Typography */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* 3. Reset & Modern Global Typography */
+*, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body { 
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
     background: var(--bg-light); 
     color: var(--text-main); 
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }

@@ -19,7 +19,11 @@ if (csrfToken) {
 // 3. Select2 (jQuery required)
 import $ from 'jquery';
 window.$ = window.jQuery = $;
-import 'select2';
+
+import select2 from 'select2';
+if (typeof select2 === 'function') {
+    select2($);
+}
 import 'select2/dist/css/select2.min.css';
 
 // 4. SweetAlert2
@@ -27,10 +31,11 @@ import Swal from 'sweetalert2';
 window.Swal = Swal;
 
 // 5. Init modules
-import './select2.init.js';
+import { initSelect2 } from './select2.init.js';
 import './alert.init.js';
 import { initDatatable } from './datatable.js';
 
+initSelect2();
 initDatatable(Alpine);
 
 // 6. Start Alpine

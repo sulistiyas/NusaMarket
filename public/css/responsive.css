@@ -1,6 +1,42 @@
 /* =============================================
-   responsive.css — Responsive Breakpoints & Overrides
+   responsive.css — Modern Responsive Breakpoints
+   NusaMarket - Blue Ocean Theme UI/UX
    ============================================= */
+
+/* Small — Mobile polish (<640px) */
+@media (max-width: 639px) {
+    .main-content {
+        padding: 16px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .dt-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dt-search {
+        max-width: 100%;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .user-name, .user-role-badge {
+        display: none;
+    }
+
+    .user-dropdown {
+        padding: 4px;
+        border-radius: 50%;
+    }
+}
 
 /* Small — Tablet portrait (>=640px) */
 @media (min-width: 640px) {
@@ -10,7 +46,7 @@
 /* Medium — Tablet landscape (>=768px) */
 @media (min-width: 768px) {
     .main-content {
-        padding: 24px;
+        padding: 24px 28px;
     }
 
     h1 { font-size: var(--text-3xl); }
@@ -20,11 +56,17 @@
 /* Large — Desktop (>=1024px) */
 @media (min-width: 1024px) {
     .sidebar {
-        transform: translateX(0); /* Desktop: selalu terlihat */
+        transform: translateX(0); /* Desktop: always visible */
+        position: fixed;
+        top: var(--header-height);
+        bottom: 0;
+        left: 0;
+        height: calc(100vh - var(--header-height));
     }
 
     .main-content {
         margin-left: var(--sidebar-width);
+        min-height: calc(100vh - var(--header-height));
     }
 
     .sidebar-toggle {
