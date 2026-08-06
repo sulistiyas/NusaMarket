@@ -58,54 +58,55 @@
         </a>
     </div>
 @else
-    <div class="flex flex-col gap-4">
+    <div class="orders-list">
         @foreach($orders as $order)
-            <div class="card p-5">
-                <div class="flex flex-wrap justify-between items-center border-b pb-3 mb-3 gap-2">
+            <div class="order-card">
+                <div class="order-card-header">
                     <div>
-                        <span class="font-bold text-primary mr-2">#{{ $order->order_number }}</span>
-                        <span class="text-xs text-muted">{{ $order->created_at->format('d M Y H:i') }}</span>
+                        <span class="order-number">#{{ $order->order_number }}</span>
+                        <span class="order-date"><i class="far fa-clock mr-1"></i>{{ $order->created_at->format('d M Y H:i WIB') }}</span>
                     </div>
 
                     <div class="flex items-center gap-2">
                         @if($order->status === 'pending')
-                            <span class="badge badge-warning">Menunggu Konfirmasi</span>
+                            <span class="badge badge-warning"><span class="badge-dot pulse"></span>Menunggu Konfirmasi</span>
                         @elseif($order->status === 'processing')
-                            <span class="badge badge-info">Diproses</span>
+                            <span class="badge badge-info"><span class="badge-dot pulse"></span>Diproses</span>
                         @elseif($order->status === 'completed')
                             <span class="badge badge-success">Selesai</span>
                         @else
                             <span class="badge badge-danger">Dibatalkan</span>
                         @endif
 
-                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-ghost btn-sm">
+                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-primary btn-sm btn-pill">
                             Detail <i class="fas fa-chevron-right ml-1"></i>
                         </a>
                     </div>
                 </div>
 
                 {{-- Items Preview --}}
-                <div class="flex flex-col gap-2 mb-4">
+                <div class="order-items-preview">
                     @foreach($order->items as $item)
-                        <div class="flex justify-between items-center text-sm">
+                        <div class="order-item-row">
                             <div>
-                                <span class="font-medium">{{ $item->product_name }}</span>
-                                <span class="text-muted text-xs">x {{ $item->quantity }}</span>
+                                <span class="order-item-name">{{ $item->product_name }}</span>
+                                <span class="order-item-qty">x {{ $item->quantity }}</span>
                             </div>
-                            <div class="font-semibold">
+                            <div class="order-item-price">
                                 Rp {{ number_format($item->subtotal, 0, ',', '.') }}
                             </div>
                         </div>
                     @endforeach
                 </div>
 
-                <div class="flex justify-between items-center border-t pt-3">
-                    <div class="text-xs text-muted">
-                        <i class="fas fa-store mr-1"></i> {{ $order->store->name ?? 'Toko NusaMarket' }}
+                <div class="order-card-footer">
+                    <div class="order-store-info">
+                        <i class="fas fa-store text-primary"></i> 
+                        <span>{{ $order->store->name ?? 'Toko NusaMarket' }}</span>
                     </div>
-                    <div class="text-right">
+                    <div>
                         <span class="text-xs text-muted mr-2">Total Transaksi:</span>
-                        <span class="font-bold text-lg text-primary">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
+                        <span class="order-total-price">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
